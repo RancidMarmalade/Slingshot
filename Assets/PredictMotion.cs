@@ -18,10 +18,25 @@ public class PredictMotion : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
+        Time.timeScale = 0f;
         GetComponent<Rigidbody2D>().AddForce(InitialVelocity);
     }
+    private void Addvelocity()
+    {
+        Time.timeScale = 1f;
+        
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Addvelocity();
+        }
+    }
     private void FixedUpdate()
-    {GameObject[] attractors = GameObject.FindGameObjectsWithTag("Attract");
+    {
+       
+        GameObject[] attractors = GameObject.FindGameObjectsWithTag("Attract");
         foreach (GameObject Attractor in attractors)
         {
             if (Attractor != this)
