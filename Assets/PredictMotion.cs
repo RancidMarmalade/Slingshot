@@ -19,10 +19,13 @@ public class PredictMotion : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 0f;
-        GetComponent<Rigidbody2D>().AddForce(InitialVelocity);
+        
+        
+
     }
     private void Addvelocity()
     {
+        GetComponent<Rigidbody2D>().AddForce(InitialVelocity);
         Time.timeScale = 1f;
         
     }

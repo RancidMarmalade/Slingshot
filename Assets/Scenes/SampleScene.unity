@@ -968,7 +968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5141856110386064242, guid: d5efdd8d2d74d4b47a1132a589f60ea2, type: 3}
       propertyPath: D
-      value: 0.45163065
+      value: 0.597113
       objectReference: {fileID: 0}
     - target: {fileID: 5141856110386064242, guid: d5efdd8d2d74d4b47a1132a589f60ea2, type: 3}
       propertyPath: InitialVelocity.x
@@ -976,7 +976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5141856110386064242, guid: d5efdd8d2d74d4b47a1132a589f60ea2, type: 3}
       propertyPath: InitialVelocity.y
-      value: 0
+      value: 1.95
       objectReference: {fileID: 0}
     - target: {fileID: 5141856110386064243, guid: d5efdd8d2d74d4b47a1132a589f60ea2, type: 3}
       propertyPath: m_RootOrder
