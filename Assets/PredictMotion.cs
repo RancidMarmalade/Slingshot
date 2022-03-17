@@ -4,90 +4,94 @@ using UnityEngine;
 
 public class PredictMotion : MonoBehaviour
 {
-    
+    public LineRenderer LineRenderer;
     public Vector2 InitialVelocity;
     private Vector2 CurrentPos;
     public int steps;
     private Vector2 V;
     private float StepLength;
     public float G;
+
     public float fps;
 
     [SerializeField]
     private float D;
-    // Update is called once per frame
-    private void Start()
+    [SerializeField]
+    private bool moveEnabled;
+    private void start()
     {
-        Time.timeScale = 0f;
-        
-        
-
+        moveEnabled = false;
     }
+    
     private void Addvelocity()
     {
+        moveEnabled = true;
         GetComponent<Rigidbody2D>().AddForce(InitialVelocity);
-        Time.timeScale = 1f;
-        
     }
-    private void Update()
+
+   
+    private void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Addvelocity();
         }
-    }
-    private void FixedUpdate()
-    {
-       
-        GameObject[] attractors = GameObject.FindGameObjectsWithTag("Attract");
-        foreach (GameObject Attractor in attractors)
+        if (moveEnabled == true) 
         {
-            if (Attractor != this)
-            {
-                Vector2 direction = (new Vector2(Attractor.transform.position.x, Attractor.transform.position.y) - new Vector2(transform.position.x, transform.position.y));
-                float dist = direction.magnitude;
-                float ForceMagnitude = (Attractor.GetComponent<Rigidbody2D>().mass - GetComponent<Rigidbody2D>().mass) / Mathf.Pow(dist, 2) * G;
-                GetComponent<Rigidbody2D>().AddForce(ForceMagnitude * direction.normalized);
-            }
-        }
-    }
-    private void OnDrawGizmos()
-    {
-        D = 100000f;
- 
-        GameObject[] attractors = GameObject.FindGameObjectsWithTag("Attract");
-        CurrentPos = transform.position;
-        V = InitialVelocity;
-        for (int i = 0; i < steps; i++)
-        {
-
-            
+            GameObject[] attractors = GameObject.FindGameObjectsWithTag("Attract");
             foreach (GameObject Attractor in attractors)
             {
-                if(Attractor != this)
+                if (Attractor != this)
                 {
-                    Vector2 direction = (new Vector2(Attractor.transform.position.x, Attractor.transform.position.y) - CurrentPos);
+                    Vector2 direction = (new Vector2(Attractor.transform.position.x, Attractor.transform.position.y) - new Vector2(transform.position.x, transform.position.y));
                     float dist = direction.magnitude;
-                    
                     float ForceMagnitude = (Attractor.GetComponent<Rigidbody2D>().mass - GetComponent<Rigidbody2D>().mass) / Mathf.Pow(dist, 2) * G;
-                    V += ForceMagnitude * direction.normalized;
-                   
-                    if(D >= dist)
-                    {
-                        D = dist;
-                        
-                    }
+                    GetComponent<Rigidbody2D>().AddForce(ForceMagnitude * direction.normalized);
                 }
             }
-            StepLength = (V.magnitude * (Time.fixedDeltaTime / fps)) / GetComponent<Rigidbody2D>().mass;
-            CurrentPos += V.normalized * StepLength;
-            Gizmos.DrawLine(CurrentPos, CurrentPos += V.normalized * StepLength);
-            
-            if(D <= 0.9f)
+        }
+        
+    }
+   
+    private void OnDrawGizmos()
+    {if(moveEnabled == false) 
+        {
+            D = 100000f;
+
+            GameObject[] attractors = GameObject.FindGameObjectsWithTag("Attract");
+            CurrentPos = transform.position;
+            V = InitialVelocity;
+            for (int i = 0; i < steps; i++)
             {
-                break;
+
+
+                foreach (GameObject Attractor in attractors)
+                {
+                    if (Attractor != this)
+                    {
+                        Vector2 direction = (new Vector2(Attractor.transform.position.x, Attractor.transform.position.y) - CurrentPos);
+                        float dist = direction.magnitude;
+
+                        float ForceMagnitude = (Attractor.GetComponent<Rigidbody2D>().mass - GetComponent<Rigidbody2D>().mass) / Mathf.Pow(dist, 2) * G;
+                        V += ForceMagnitude * direction.normalized;
+
+                        if (D >= dist)
+                        {
+                            D = dist;
+
+                        }
+                    }
+                }
+                StepLength = (V.magnitude * (Time.fixedDeltaTime / fps)) / GetComponent<Rigidbody2D>().mass;
+                CurrentPos += V.normalized * StepLength;
+                Gizmos.DrawLine(CurrentPos, CurrentPos += V.normalized * StepLength);
+
+                if (D <= 0.9f)
+                {
+                    break;
+                }
+
             }
-           
         }
     }
 }
