@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PredictMotion : MonoBehaviour
 {
+
     public LineRenderer LineRenderer;
     public Vector2 InitialVelocity;
     private Vector2 CurrentPos;
@@ -16,6 +17,7 @@ public class PredictMotion : MonoBehaviour
 
     [SerializeField]
     private float D;
+
     [SerializeField]
     private bool moveEnabled;
     private void start()
@@ -30,13 +32,16 @@ public class PredictMotion : MonoBehaviour
     }
 
    
+
     private void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Addvelocity();
         }
+
         if (moveEnabled == true) 
+
         {
             GameObject[] attractors = GameObject.FindGameObjectsWithTag("Attract");
             foreach (GameObject Attractor in attractors)
@@ -52,9 +57,11 @@ public class PredictMotion : MonoBehaviour
         }
         
     }
+
    
     private void OnDrawGizmos()
     {if(moveEnabled == false) 
+
         {
             D = 100000f;
 
