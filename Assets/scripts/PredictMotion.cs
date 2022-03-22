@@ -29,7 +29,6 @@ public class PredictMotion : MonoBehaviour
         GetComponent<Rigidbody2D>().AddForce(InitialVelocity);
     }
 
-   
     private void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Space) && moveEnabled == false)
@@ -44,7 +43,6 @@ public class PredictMotion : MonoBehaviour
                 if (Attractor != this)
                 {
                     Vector2 direction = (new Vector2(Attractor.transform.position.x, Attractor.transform.position.y) - new Vector2(transform.position.x, transform.position.y));
-                    
 
                     float dist = direction.magnitude;
                     float ForceMagnitude = (Attractor.GetComponent<Rigidbody2D>().mass - GetComponent<Rigidbody2D>().mass) / Mathf.Pow(dist, 2) * G;
@@ -66,8 +64,6 @@ public class PredictMotion : MonoBehaviour
             V = InitialVelocity;
             for (int i = 0; i < steps; i++)
             {
-
-
                 foreach (GameObject Attractor in attractors)
                 {
                     if (Attractor != this)
@@ -81,7 +77,6 @@ public class PredictMotion : MonoBehaviour
                         if (D >= dist)
                         {
                             D = dist;
-
                         }
                     }
                 }
