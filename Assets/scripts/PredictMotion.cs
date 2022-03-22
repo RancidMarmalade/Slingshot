@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PredictMotion : MonoBehaviour
 {
-    public LineRenderer LineRenderer;
+    
     public Vector2 InitialVelocity;
     private Vector2 CurrentPos;
     public int steps;
@@ -32,7 +32,7 @@ public class PredictMotion : MonoBehaviour
    
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && moveEnabled == false)
         {
             Addvelocity();
         }
@@ -44,9 +44,12 @@ public class PredictMotion : MonoBehaviour
                 if (Attractor != this)
                 {
                     Vector2 direction = (new Vector2(Attractor.transform.position.x, Attractor.transform.position.y) - new Vector2(transform.position.x, transform.position.y));
+                    
+
                     float dist = direction.magnitude;
                     float ForceMagnitude = (Attractor.GetComponent<Rigidbody2D>().mass - GetComponent<Rigidbody2D>().mass) / Mathf.Pow(dist, 2) * G;
                     GetComponent<Rigidbody2D>().AddForce(ForceMagnitude * direction.normalized);
+                    
                 }
             }
         }
