@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PredictMotion : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class PredictMotion : MonoBehaviour
     private Vector2 V;
     private float StepLength;
     public float G;
+
+    public Slider Y;
+    public Slider X;
 
     public float fps;
 
@@ -31,6 +35,8 @@ public class PredictMotion : MonoBehaviour
 
     private void FixedUpdate()
     {
+        InitialVelocity.x = X.value;
+        InitialVelocity.y = Y.value;
         if (Input.GetKeyDown(KeyCode.Space) && moveEnabled == false)
         {
             Addvelocity();
