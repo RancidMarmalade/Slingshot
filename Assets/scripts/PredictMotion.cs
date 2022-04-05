@@ -25,6 +25,7 @@ public class PredictMotion : MonoBehaviour
     private void start()
     {
         moveEnabled = false;
+        
     }
     
     private void Addvelocity()
