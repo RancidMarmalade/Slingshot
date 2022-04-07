@@ -2804,6 +2804,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5141856110386064242, guid: d5efdd8d2d74d4b47a1132a589f60ea2, type: 3}
+      propertyPath: useSliders
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141856110386064242, guid: d5efdd8d2d74d4b47a1132a589f60ea2, type: 3}
       propertyPath: InitialVelocity.x
       value: 18.3
       objectReference: {fileID: 0}

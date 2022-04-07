@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class PredictMotion : MonoBehaviour
 {
-    
+    private int i;
+    public bool useSliders;
     public Vector2 InitialVelocity;
     private Vector2 CurrentPos;
     public int steps;
@@ -25,7 +26,7 @@ public class PredictMotion : MonoBehaviour
     private void start()
     {
         moveEnabled = false;
-        
+        i = 0;
     }
     
     private void Addvelocity()
@@ -36,8 +37,17 @@ public class PredictMotion : MonoBehaviour
 
     private void FixedUpdate()
     {
-        InitialVelocity.x = X.value;
-        InitialVelocity.y = Y.value;
+        if(useSliders == true) 
+        {
+            InitialVelocity.x = X.value;
+            InitialVelocity.y = Y.value;
+        }
+        else if(i == 0)
+        {
+            i++;
+            Addvelocity();
+        }
+        
         if (Input.GetKeyDown(KeyCode.Space) && moveEnabled == false)
         {
             Addvelocity();
