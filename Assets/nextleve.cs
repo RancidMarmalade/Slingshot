@@ -6,41 +6,48 @@ using UnityEngine.UI;
 
 public class nextleve : MonoBehaviour
 {
-    public ParticleSystem Explosion;
+    public GameObject spaceship;
+    public TrailRenderer trail;
+    //public ParticleSystem Explosion;
     public Text Lost;
-    public GameObject Player;
     private void Start()
     {
+        
+        trail.emitting = true;
+        spaceship.GetComponent<MeshRenderer>().enabled = true;
         Lost.enabled = false;
     }
-    private void OnTriggerEnter(Collider other)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("collided");
-        if(other.tag == "goal" && SceneManager.GetActiveScene().buildIndex > 6)
+        if (collision.collider.tag == "goal" && SceneManager.GetActiveScene().buildIndex < 6)
         {
-            Debug.Log("collided with goal");
+            Debug.Log("next level");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
-        else if(other.tag == "goal" && SceneManager.GetActiveScene().buildIndex == 6)
+        else if (collision.collider.tag == "goal" && SceneManager.GetActiveScene().buildIndex == 6)
         {
-            Debug.Log("collided with goal");
+            Debug.Log("main menu");
             SceneManager.LoadScene(0);
         }
 
-        if(other.tag != "goal")
+        if (collision.collider.tag != "goal")
         {
-            Debug.Log("did not collide with goal");
-            Destroy(Player.gameObject);
+            
+            spaceship.GetComponent<MeshRenderer>().enabled = false;
+            trail.emitting = false;
             Lost.enabled = true;
-            if(Explosion.isPlaying == false) 
+           /* if (Explosion.isPlaying == false)
             {
-                Explosion.Play();
-            }
+                Debug.Log("particles wooo");
+            }*/
             StartCoroutine(reload());
         }
     }
+   
     IEnumerator reload()
     {
+        
         yield return new WaitForSecondsRealtime(2.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

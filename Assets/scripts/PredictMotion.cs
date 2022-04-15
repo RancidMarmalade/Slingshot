@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PredictMotion : MonoBehaviour
 {
+    public LineRenderer lr;
     private int i;
     public bool useSliders;
     public Vector2 InitialVelocity;
@@ -18,15 +19,20 @@ public class PredictMotion : MonoBehaviour
     public Slider X;
 
     public float fps;
-
+    public List<Vector2> Points;
     [SerializeField]
     private float D;
     [SerializeField]
     private bool moveEnabled;
     private void start()
     {
+        lr = GetComponent<LineRenderer>();
         moveEnabled = false;
         i = 0;
+        
+        lr.startWidth = 0.1f;
+        lr.endWidth = 0.1f;
+
     }
     
     private void Addvelocity()
@@ -37,6 +43,8 @@ public class PredictMotion : MonoBehaviour
 
     private void FixedUpdate()
     {
+        fps = 50;
+        lr.positionCount = Points.Count;
         if(useSliders == true) 
         {
             InitialVelocity.x = X.value;
@@ -68,19 +76,18 @@ public class PredictMotion : MonoBehaviour
                 }
             }
         }
-        
-    }
-   
-    private void OnDrawGizmos()
-    {if(moveEnabled == false) 
-        {
-            D = 100000f;
 
+        if (moveEnabled == false)
+        {
+            Points.Clear();
+            D = 100000f;
+            
             GameObject[] attractors = GameObject.FindGameObjectsWithTag("Attract");
             CurrentPos = transform.position;
             V = InitialVelocity;
             for (int i = 0; i < steps; i++)
             {
+                
                 foreach (GameObject Attractor in attractors)
                 {
                     if (Attractor != this)
@@ -99,13 +106,25 @@ public class PredictMotion : MonoBehaviour
                 }
                 StepLength = (V.magnitude * (Time.fixedDeltaTime / fps)) / GetComponent<Rigidbody2D>().mass;
                 CurrentPos += V.normalized * StepLength;
-                Gizmos.DrawLine(CurrentPos, CurrentPos += V.normalized * StepLength);
-
+                //Gizmos.DrawSphere(CurrentPos, 0.1f);
+                Points.Add(CurrentPos);
+                
                 if (D <= 0.9f)
                 {
                     break;
                 }
 
+            }
+            for (int x = 0; x < Points.Count; x++)
+            {
+                if(x < lr.positionCount)
+                {
+                    lr.SetPosition(x, Points[x]);
+                }
+                else
+                {
+                    break;
+                }
             }
         }
     }
