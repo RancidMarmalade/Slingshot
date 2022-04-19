@@ -16,6 +16,10 @@ public class ButtonScript : MonoBehaviour
     }
     public void SettingButton()
     {
-
+        SceneManager.LoadScene(7);
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
