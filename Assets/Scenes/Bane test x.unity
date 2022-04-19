@@ -458,6 +458,20 @@ MonoBehaviour:
   spaceship: {fileID: 1762871491}
   trail: {fileID: 311967484}
   Lost: {fileID: 2096704951}
+--- !u!114 &212449702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212449700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c4a9f06cc87ac44b037388baaf36f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Ship: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!120 &212449707
 LineRenderer:
   m_ObjectHideFlags: 0

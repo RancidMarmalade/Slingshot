@@ -51,4 +51,11 @@ public class nextleve : MonoBehaviour
         yield return new WaitForSecondsRealtime(2.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    private void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 }
