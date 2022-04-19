@@ -8,7 +8,7 @@ public class nextleve : MonoBehaviour
 {
     public GameObject spaceship;
     public TrailRenderer trail;
-    //public ParticleSystem Explosion;
+    public ParticleSystem Explosion;
     public Text Lost;
     private void Start()
     {
@@ -37,10 +37,10 @@ public class nextleve : MonoBehaviour
             spaceship.GetComponent<MeshRenderer>().enabled = false;
             trail.emitting = false;
             Lost.enabled = true;
-           /* if (Explosion.isPlaying == false)
+            if (Explosion.isPlaying == false)
             {
-                Debug.Log("particles wooo");
-            }*/
+                Explosion.Play();
+            }
             StartCoroutine(reload());
         }
     }
