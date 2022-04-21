@@ -80,14 +80,14 @@ public class PredictMotion : MonoBehaviour
         if (moveEnabled == false)
         {
             Points.Clear();
+
             D = 100000f;
-            
             GameObject[] attractors = GameObject.FindGameObjectsWithTag("Attract");
             CurrentPos = transform.position;
             V = InitialVelocity;
+
             for (int i = 0; i < steps; i++)
             {
-                
                 foreach (GameObject Attractor in attractors)
                 {
                     if (Attractor != this)
@@ -108,12 +108,10 @@ public class PredictMotion : MonoBehaviour
                 CurrentPos += V.normalized * StepLength;
                 //Gizmos.DrawSphere(CurrentPos, 0.1f);
                 Points.Add(CurrentPos);
-                
                 if (D <= 0.9f)
                 {
                     break;
                 }
-
             }
             for (int x = 0; x < Points.Count; x++)
             {
